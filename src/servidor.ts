@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import  Express, { Request, Response }  from "express";
 
 const app = Express()
@@ -7,6 +8,6 @@ const controlador = (req: Request, res: Response) => {
 }
 
 
-app.get('/', controlador)
+app.get("/", controlador)
 
-app.listen(process.env.port)
+app.listen(process.env.PORT)
