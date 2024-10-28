@@ -1,14 +1,25 @@
 import 'dotenv/config';
-import  Express, { Request, Response }  from "express";
+import express, { Request, Response, Express } from 'express';
 
-const app = Express()
+const app: Express = express();
 
-const controlador = (req: Request, res: Response) => {
-    console.log(req.params.item)
-    res.send("Hello World!")
-}
+const pessoas = [
+    { nome: "carol", email: "carol@email.com" },
+    { nome: "lucas", email: "lucas@email.com" },
+    { nome: "isabella", email: "isabella@email.com" }
+];
 
+const controlador = (req: Request, res: Response): Response => {
+    const { email } = req.params;
+    const pessoa = pessoas.find(item => item.email === email);
 
-app.get("/?:item", controlador)
+    if (!pessoa) {
+        return res.send("Pessoa não encontrada!");
+    }
+    return res.send(pessoa);
+};
+
+app.get("/usuarios/:email", controlador);
+
 
 app.listen(process.env.PORT)
